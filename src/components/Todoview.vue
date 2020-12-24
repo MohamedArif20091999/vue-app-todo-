@@ -1,11 +1,26 @@
 <template>
     <div>
-        <v-card >
-            <v-card-title>
-                Title
-            </v-card-title>
-            <v-card-subtitle>Todo body</v-card-subtitle>
-        </v-card>
+        
+        <ul v-for="todo in $store.state.todos" :key="todo.id">
+            <div style="padding:5px">
+                <v-card elevation="5" class="mx-auto">
+                <v-card-title>{{todo.todo}}</v-card-title>
+                <v-card-actions>
+                    <v-row align="center" justify="end">
+                          <v-btn icon>
+                        <v-icon medium color="blue darken-2" >mdi-circle-edit-outline</v-icon> 
+                    </v-btn>  
+                    <v-btn icon>
+                        <v-icon  medium color="brown lighten-0" >mdi-delete</v-icon> 
+                    </v-btn> 
+                    </v-row>
+                                    
+                </v-card-actions>
+               
+            </v-card>
+            </div>
+           
+        </ul>
     </div>
 </template>
 
