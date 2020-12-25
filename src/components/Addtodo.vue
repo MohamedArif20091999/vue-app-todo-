@@ -1,7 +1,7 @@
 <template>
     <div class="plus" >
           <v-btn @click="dialog=true" color="lime darken-4" fab dark absolute right>
-                        <v-icon  x-large color="white lighten-0" >mdi-plus</v-icon> 
+              <v-icon  x-large color="white lighten-0" >mdi-plus</v-icon> 
            </v-btn> 
           <v-dialog
         v-model="dialog"
@@ -17,11 +17,11 @@
           sm="12"
         >
           <v-text-field
-            v-model="message4"
             label="to-do" 
             outlined
             clearable
             color="brown"
+            v-model="post"
           ></v-text-field>
         </v-col>
           <v-card-actions>
@@ -30,8 +30,7 @@
             <v-btn
               color="lime darken-4"
               text
-            
-              @click="dialog = false"
+              @click="dialog = false; log();"
             >
               save
             </v-btn>
@@ -48,15 +47,28 @@
 export default {
     data() {
         return {
-            dialog:false
+            dialog:false,
+            post:'',
+            // postcontent:{},
         }
     },
     methods:{
-        push(){
-            
-            return this.$router.push('./add');
-
-        }
+       log() {
+          
+        
+          //  this.postcontent={
+          //   id:this.$store.state.todos.length+1,
+          //   todo:this.post,
+          //   checked:false
+          // };
+          // if(this.post.length >= 1){
+          //   this.$store.state.todos.push(postcontent);
+          //    console.log(this.$store.state.todos);
+          // }
+        this.$store.commit('add',this.post)
+        this.post='';
+          
+       }
     }
 }
 </script>
@@ -69,5 +81,8 @@ export default {
     padding-bottom: 20px;
     margin-bottom: 100px;
     padding-right: 200px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
 }
 </style>

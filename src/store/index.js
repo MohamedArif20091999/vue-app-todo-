@@ -7,17 +7,43 @@ export default new Vuex.Store({
   state() {
     return{
       todos:[
-        {id:1,todo:"One"},
-        {id:2,todo:"two"},
-        {id:3,todo:"three"},
-        {id:4,todo:"four"},
-        {id:5,todo:"three"},
-        {id:6,todo:"three"},
-        {id:7,todo:"seven Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"},
-      ]
+        {id:1,todo:"One",checked:false},
+        {id:2,todo:"two",checked:false},
+        {id:3,todo:"three",checked:false},
+        {id:4,todo:"four",checked:false},
+        {id:5,todo:"five",checked:false},
+        {id:6,todo:"six",checked:false},
+        {id:7,todo:"seven",checked:false},
+      ],
+      // postcontent:{}
     }
   },
-  mutations: {},
+  mutations: {
+    delete(state,todo){
+      var changedtodos=state.todos.filter(function(itodo){
+        return itodo.id!=todo.id
+    })
+      state.todos=changedtodos;
+    },
+    
+    checkClick(state,id){
+      let item=state.todos.find(i => i.id == id)
+      item.checked= !item.checked;
+    },
+    add(state,post){
+      
+      var postcontent={
+        id:state.todos.length+1,
+        todo:post,
+        checked:false
+      }
+      if(post.length>=1){
+        state.todos.push(postcontent);
+      }
+    }
+
+
+  },
   actions: {},
   modules: {}
 });
