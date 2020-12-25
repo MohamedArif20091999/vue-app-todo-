@@ -1,7 +1,11 @@
 <template>
     <div>
-        
-        <ul v-for="todo in $store.state.todos" :key="todo.id">
+         <v-app>
+    <appbar></appbar>
+    <v-main>
+      <div style="padding:20px"> <h1 style="text-align:center; color:brown;"> Your todo's</h1> </div>
+      <!-- <todoview></todoview> -->
+      <ul v-for="todo in $store.state.todos" :key="todo.id">
             <div style="padding:5px">
                 <v-card elevation="5" class="mx-auto">
                 <v-card-title>{{todo.todo}}</v-card-title>
@@ -18,11 +22,26 @@
                 </v-card-actions>
                
             </v-card>
-            </div>
-           
+            </div>          
         </ul>
-    </div>
+    </v-main>
+     <addtodo></addtodo>
+  </v-app>
+</div>
 </template>
+
+<script>
+import Appbar from "./Appbar.vue";
+import Addtodo from "./Addtodo.vue";
+
+
+export default {
+    components:{
+        Appbar,
+        Addtodo,
+    }
+}
+</script>
 
 <style scoped>
     .v-card{
@@ -30,6 +49,9 @@
        
         margin: auto;
         
+    }
+    .v-main{
+        flex: 0;
     }
 
 </style>
