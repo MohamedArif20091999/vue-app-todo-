@@ -6,7 +6,7 @@
       <div style="padding:20px"> <h1 style="text-align:center; color:brown;"> Your todo's</h1> </div>
       <!-- <todoview></todoview> -->
       
-          <ul v-for="todo in $store.state.todos" :key="todo.id">
+          <ul v-for="todo in todos" :key="todo._id">
             <div style="padding:5px">
                 
                 <v-card elevation="5" class="mx-auto">
@@ -14,7 +14,7 @@
                 <v-card-actions>
                     <v-row align="center" >
                         <v-row>
-                    <v-btn icon right @click="checkClick(todo.id)">
+                    <v-btn icon right @click="checkClick(todo._id)">
                         <v-icon medium color="lime darken-2" >mdi-check-circle</v-icon> 
                     </v-btn> 
                         </v-row>
@@ -39,27 +39,43 @@
 <script>
 import Appbar from "./Appbar.vue";
 import Addtodo from "./Addtodo.vue";
-
+import axios from 'axios';
 
 export default {
     components:{
         Appbar,
         Addtodo,
+    
     },
     data() {
         return {
-            isChecked: false
+            isChecked: false,
+            todos:[],
         }
     },
     methods:{
-        deletetodoo(todo){
-            return this.$store.commit('delete',todo)
+       async deletetodoo(todo){
+            console.log(todo._id);
+            // return this.$store.commit('delete',todo)
+            await axios.get('http://localhost:3000/todos/'+todo._id)
+            this.$forceUpdate();
         },
 
         checkClick(id){
            
             return this.$store.commit('checkClick',id)  
         }
+    },
+    mounted() {
+        axios.get('http://localhost:3000/todos')
+        .then((response)=>{
+            console.log(response.data);
+
+            this.todos=response.data
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
     }
 
 }
