@@ -53,12 +53,18 @@ export default {
             todos:[],
         }
     },
+   
     methods:{
-       async deletetodoo(todo){
+        deletetodoo(todo){
             console.log(todo._id);
             // return this.$store.commit('delete',todo)
-            await axios.get('http://localhost:3000/todos/'+todo._id)
-            this.$forceUpdate();
+            axios.get('http://localhost:3000/todos/'+todo._id)
+            // window.location.reload();
+            .then((response)=>{
+                console.log(response.data);
+                this.todos=response.data
+
+            })
         },
 
         checkClick(id){
