@@ -14,7 +14,7 @@
                 <v-card-actions>
                     <v-row align="center" >
                         <v-row>
-                    <v-btn icon right @click="checkClick(todo._id)">
+                    <v-btn icon right @click="checkClick(todo)">
                         <v-icon medium color="lime darken-2" >mdi-check-circle</v-icon> 
                     </v-btn> 
                         </v-row>
@@ -53,10 +53,15 @@ export default {
             todos:[],
         }
     },
+    // computed:{
+    //     renew(){
+    //         return this.todos;
+    //     }
+    // },
    
     methods:{
         deletetodoo(todo){
-            console.log(todo._id);
+            // console.log(todo._id);
             // return this.$store.commit('delete',todo)
             axios.get('http://localhost:3000/todos/'+todo._id)
             // window.location.reload();
@@ -67,15 +72,21 @@ export default {
             })
         },
 
-        checkClick(id){
-           
-            return this.$store.commit('checkClick',id)  
+        checkClick(todo){
+           console.log(todo);
+           axios.get('http://localhost:3000/todoCheck/'+todo._id)
+           .then((response)=>{
+               console.log(response.data);
+               this.todos=response.data;
+           })
+
+            // return this.$store.commit('checkClick',id)  
         }
     },
     mounted() {
         axios.get('http://localhost:3000/todos')
         .then((response)=>{
-            console.log(response.data);
+            // console.log(response.data);
 
             this.todos=response.data
         })
