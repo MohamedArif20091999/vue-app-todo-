@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view @changed="load();" ></router-view>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
          <v-app>
     <appbar></appbar>
     <v-main>
-      <div style="padding:20px"> <h1 style="text-align:center; color:brown;"> Your todo's</h1> </div>
+      <div  style="padding:20px"> <h1 style="text-align:center; color:brown;"> Your todo's</h1> </div>
       <!-- <todoview></todoview> -->
       
           <ul v-for="todo in todos" :key="todo._id">
@@ -81,6 +81,23 @@ export default {
            })
 
             // return this.$store.commit('checkClick',id)  
+        },
+        load(){
+            alert("Hai")
+             axios.get('http://localhost:3000/todos')
+        .then((response)=>{
+            // console.log(response.data);
+
+            this.todos=response.data
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+        }
+    },
+    computed:{
+        loadnow(){
+            return this.todos
         }
     },
     mounted() {

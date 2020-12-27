@@ -3,7 +3,8 @@
           <v-btn @click="dialog=true" color="lime darken-4" fab dark absolute right>
               <v-icon  x-large color="white lighten-0" >mdi-plus</v-icon> 
            </v-btn> 
-          <v-dialog
+           <v-form @submit.prevent="submit" id="submitForm" > 
+              <v-dialog
         v-model="dialog"
         max-width="490"
       >
@@ -28,9 +29,11 @@
             <v-spacer></v-spacer>
   
             <v-btn
+              type="submit"
               color="lime darken-4"
               text
-              @click="dialog = false; log();"
+              form="submitForm"
+              @click="dialog = false; posted();"
             >
               save
             </v-btn>
@@ -39,38 +42,52 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+           </v-form>
+    
+             
+   
+         
 
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
+ 
     data() {
         return {
             dialog:false,
             post:'',
             // postcontent:{},
+           todoContent:'',
+         checked:Boolean
         }
     },
+
     methods:{
-       log() {
+      submit(){
+        // alert("Post method")
+        console.log(this.post);
+        const todo={
+          todo:this.post,
+          checked:false
+        }
+        axios.post('http://localhost:3000/addTodo/',todo)
+        .then((response)=>{
+          console.log(response);
+         
           
-        
-          //  this.postcontent={
-          //   id:this.$store.state.todos.length+1,
-          //   todo:this.post,
-          //   checked:false
-          // };
-          // if(this.post.length >= 1){
-          //   this.$store.state.todos.push(postcontent);
-          //    console.log(this.$store.state.todos);
-          // }
-        this.$store.commit('add',this.post)
-        this.post='';
-          
-       }
+        })
+
+      },
+      posted(){
+        // alert("changed")
+         this.$emit('changed')
+      }
     }
-}
+} 
 </script>
 
 
