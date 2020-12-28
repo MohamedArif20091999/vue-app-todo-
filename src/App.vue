@@ -1,5 +1,6 @@
 <template>
-  <router-view @changed="load();" ></router-view>
+  <router-view  ></router-view>
+  <!-- <todoview @changed-data="posttodoo" ></todoview> -->
 </template>
 
 <script>

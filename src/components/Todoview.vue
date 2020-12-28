@@ -31,7 +31,7 @@
         </ul>
       
     </v-main>
-     <addtodo></addtodo>
+     <addtodo @changed-data="posttodoo" ></addtodo>
   </v-app>
 </div>
 </template>
@@ -71,9 +71,32 @@ export default {
 
             })
         },
+        posttodoo(post){
+            if(post.length>=1){
+                 console.log("posttodooooo method");
+            console.log(post);
+            const todo={
+          todo:post,
+          checked:false
+        }
+        
+         axios.post('http://localhost:3000/addTodo/',todo)
+        .then((response)=>{
+          console.log(response);
+          this.load();
+          
+        })
+        
+            }
+            else{
+                console.log("type something");
+            }
+            // alert("posttosoooooo")
+           
+        },
 
         checkClick(todo){
-           console.log(todo);
+        //    console.log(todo);
            axios.get('http://localhost:3000/todoCheck/'+todo._id)
            .then((response)=>{
                console.log(response.data);
@@ -83,7 +106,7 @@ export default {
             // return this.$store.commit('checkClick',id)  
         },
         load(){
-            alert("Hai")
+            // alert("Hai")
              axios.get('http://localhost:3000/todos')
         .then((response)=>{
             // console.log(response.data);
@@ -95,11 +118,7 @@ export default {
         })
         }
     },
-    computed:{
-        loadnow(){
-            return this.todos
-        }
-    },
+   
     mounted() {
         axios.get('http://localhost:3000/todos')
         .then((response)=>{

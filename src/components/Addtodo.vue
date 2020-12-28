@@ -33,7 +33,7 @@
               color="lime darken-4"
               text
               form="submitForm"
-              @click="dialog = false; posted();"
+              @click="dialog = false; submitt();"
             >
               save
             </v-btn>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
  
@@ -67,24 +67,31 @@ export default {
     },
 
     methods:{
-      submit(){
-        // alert("Post method")
-        console.log(this.post);
-        const todo={
-          todo:this.post,
-          checked:false
-        }
-        axios.post('http://localhost:3000/addTodo/',todo)
-        .then((response)=>{
-          console.log(response);
+      // submit(){
+      //   // alert("Post method")
+      //   console.log(this.post);
+      //   const todo={
+      //     todo:this.post,
+      //     checked:false
+      //   }
+      //   axios.post('http://localhost:3000/addTodo/',todo)
+      //   .then((response)=>{
+      //     console.log(response);
          
           
-        })
+      //   })
 
+      // },
+      submit(){
+        console.log("form-submit")
+         const post=this.post
+        this.$emit('changed-data',post)
+      
       },
-      posted(){
-        // alert("changed")
-         this.$emit('changed')
+      submitt(){
+        console.log("click  method");
+        //  const post=this.post
+        // this.$emit('changed-data',post)
       }
     }
 } 
